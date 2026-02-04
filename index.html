@@ -1,17 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Valentine 💖</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Document</title>
 
   <!-- Google Font -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 
   <style>
+    :root {
+      --primary: #c9184a;
+      --dark: #590d22;
+      --muted: #495057;
+      --light: #fff0f5;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
     body {
       margin: 0;
       height: 100vh;
-      background: linear-gradient(135deg, #ffd6e0, #ffeef3);
+      background: radial-gradient(circle at top, #fff7fa, #fde2e8);
       display: flex;
       justify-content: center;
       align-items: center;
@@ -21,56 +33,81 @@
 
     .container {
       text-align: center;
-      max-width: 90%;
+      max-width: 900px;
+      padding: 40px;
     }
 
     h1 {
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      font-size: clamp(2.8rem, 6vw, 4.5rem);
       font-weight: 700;
-      color: #d6336c;
-      margin-bottom: 50px;
+      color: var(--dark);
       line-height: 1.2;
+      letter-spacing: -0.5px;
+      margin-bottom: 60px;
     }
 
     .buttons {
       position: relative;
-      height: 100px;
+      height: 120px;
     }
 
     button {
-      font-size: 1.2rem;
+      font-size: 1.1rem;
       padding: 14px 40px;
-      border-radius: 40px;
+      border-radius: 999px;
       border: none;
       cursor: pointer;
-      transition: transform 0.2s ease;
+      font-weight: 500;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
 
     #yesBtn {
-      background-color: #ff4d88;
-      color: white;
+      background: var(--primary);
+      color: #fff;
+      box-shadow: 0 12px 30px rgba(201, 24, 74, 0.3);
     }
 
     #yesBtn:hover {
-      transform: scale(1.05);
+      transform: translateY(-2px);
+      box-shadow: 0 16px 45px rgba(201, 24, 74, 0.4);
     }
 
     #noBtn {
-      background-color: #e0e0e0;
-      color: #555;
+      background: #f1f3f5;
+      color: var(--muted);
       position: absolute;
       left: 55%;
       top: 0;
     }
 
-    #gif {
+    #result {
       display: none;
-      margin-top: 40px;
+      margin-top: 50px;
+      animation: fadeIn 0.8s ease forwards;
     }
 
-    #gif img {
-      width: 280px;
-      border-radius: 20px;
+    .success-text {
+      color: var(--primary);
+      font-weight: 600;
+      letter-spacing: 0.4px;
+      margin-bottom: 25px;
+    }
+
+    #result img {
+      width: 300px;
+      border-radius: 24px;
+      box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
     }
   </style>
 </head>
@@ -78,37 +115,39 @@
 <body>
 
   <div class="container">
-    <h1>Will you be my Valentine? 💖</h1>
+    <h1>Will you be my Valentine?</h1>
 
-    <div class="buttons">
-      <button id="yesBtn" onclick="yesClicked()">Yes 💕</button>
-      <button id="noBtn" onmouseenter="moveNo()">No 🙃</button>
+    <div class="buttons" id="buttons">
+      <button id="yesBtn" onclick="yesClicked()">Yes</button>
+      <button id="noBtn" onmouseenter="moveNo()">No</button>
     </div>
 
-    <div id="gif">
-     <h2>Hehe… knew you couldn’t say no 😌💘</h2>
-
-   <img src="https://media.giphy.com/media/26u4cqiYI30juCOGY/giphy.gif">
-
-
-
+    <div id="result">
+      <h2 class="success-text">I knew you’d make the right choice.</h2>
+      <img src="https://media.giphy.com/media/26u4cqiYI30juCOGY/giphy.gif" alt="Happy reaction">
     </div>
   </div>
 
   <script>
     function moveNo() {
       const btn = document.getElementById("noBtn");
-      const x = Math.random() * (window.innerWidth - btn.offsetWidth);
-      const y = Math.random() * (window.innerHeight - btn.offsetHeight);
+      const padding = 20;
+      const maxX = window.innerWidth - btn.offsetWidth - padding;
+      const maxY = window.innerHeight - btn.offsetHeight - padding;
+
+      const x = Math.random() * maxX;
+      const y = Math.random() * maxY;
+
       btn.style.left = x + "px";
       btn.style.top = y + "px";
     }
 
     function yesClicked() {
-      document.querySelector(".buttons").style.display = "none";
-      document.getElementById("gif").style.display = "block";
+      document.getElementById("buttons").style.display = "none";
+      document.getElementById("result").style.display = "block";
     }
   </script>
 
 </body>
 </html>
+
